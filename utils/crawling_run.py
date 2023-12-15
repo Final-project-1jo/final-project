@@ -48,4 +48,3 @@ with open('tag_data.pkl', 'wb') as file:
 with open('tag_data.pkl', 'rb') as file:
     df = pickle.load(file)
 
-
