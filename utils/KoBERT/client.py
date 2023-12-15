@@ -1,5 +1,5 @@
 from utils.KoBERT.module import find_similarity_top_3, kobert, find_near_place
-from googletrans import Translator
+from googletrans import Translator # pip install googletrans==4.0.0-rc1
 import pandas as pd
 import os
 import pickle
