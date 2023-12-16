@@ -14,6 +14,9 @@ place_df = pd.read_csv(parent_path + '\\data\\place.csv')
 #숙소 데이터 불러오기
 hotel_df = pd.read_csv(parent_path + '\\data\\hotel.csv')
 
+#음식점 데이터 불러오기
+food_df = pd.read_csv(parent_path + '\\data\\food.csv')
+
 #임베딩된 문장들 불러오기
 with open(parent_path + '\\data\\kobert_embeddings.pkl', 'rb') as file:
     base_embeddings = pickle.load(file)
@@ -38,6 +41,14 @@ def app(user_text):
     #유사도가 가장 높은 장소와 가장 가까운 숙소 3곳
     near_hotels = find_near_place(hotel_df, top_3_df.loc[0])
 
+    #유사도가 가장 높은 장소와 가장 가까운 숙소 3곳
+    near_foods = find_near_place(food_df, top_3_df.loc[0])
+
+    #링크 붙이기
+    top_3_df.link = [name_link_dict[name] for name in top_3_df.name]
+    near_hotels.link = [name_link_dict[name] for name in near_hotels.name]
+    near_foods.link = [name_link_dict[name] for name in near_foods.name]
+    
     # 대상언어로 번역
     for idx, name in enumerate(top_3_df.name):
         top_3_df.name[idx] = translator.translate(name, src=trans_to_lang, dest=trans_from_lang).text
@@ -45,11 +56,14 @@ def app(user_text):
         top_3_df['info'][idx] = translator.translate(info, src=trans_to_lang, dest=trans_from_lang).text
     for idx, name in enumerate(near_hotels.name):
         near_hotels.name[idx] = translator.translate(name, src=trans_to_lang, dest=trans_from_lang).text
-    for idx, info in enumerate(near_hotels['info']):
-        near_hotels['info'][idx] = translator.translate(info, src=trans_to_lang, dest=trans_from_lang).text
-    #유사도가 가장 높은 장소와 가장 가까운 음식점 3곳
-    #near_foods = 
-    return top_3_df, near_hotels
+    #for idx, info in enumerate(near_hotels['info']):
+        #near_hotels['info'][idx] = translator.translate(info, src=trans_to_lang, dest=trans_from_lang).text
+    for idx, name in enumerate(near_foods.name):
+        near_foods.name[idx] = translator.translate(name, src=trans_to_lang, dest=trans_from_lang).text
+    #for idx, info in enumerate(near_foods['info']):
+        #near_foods['info'][idx] = translator.translate(info, src=trans_to_lang, dest=trans_from_lang).text
+
+    return top_3_df, near_hotels, near_foods
 
 '''
 print(f'추천 여행지 \n{top_3_df.name[0]}')
