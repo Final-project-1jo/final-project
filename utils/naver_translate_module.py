@@ -5,7 +5,7 @@ import json
 
 id = '5VzlTHx3tgwK2VbWr296'
 secret = 'rvu4XGsqAj'
-trans_possible_lang_list = ['ko', 'en', 'ja', 'zh-CN', 'zh-TW', 'vi', 'id', 'th', 'de', 'ru', 'es', 'it', 'fr']
+trans_possible_lang_dict = {'korean':'ko', 'english':'en', 'japanese':'ja', 'simplified chinese':'zh-CN', 'traditional chinese':'zh-TW', 'vietnamese':'vi', 'indonesian':'id', 'thai':'th', 'german':'de', 'russian':'ru', 'spanish':'es', 'italian':'it', 'french':'fr'}
 
 def detectLangs(text):
     encQuery = urllib.parse.quote(text)

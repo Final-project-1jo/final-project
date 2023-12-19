@@ -3,7 +3,8 @@ from gensim.models import Word2Vec
 import os
 import pickle
 import pandas as pd
-from googletrans import Translator
+#from googletrans import Translator
+#from utils import naver_translate_module
 
 
 

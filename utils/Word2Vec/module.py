@@ -2,8 +2,9 @@ from konlpy.tag import Okt
 import pandas as pd
 import os
 import pickle
-from googletrans import Translator
+#from googletrans import Translator
 from haversine import haversine
+from utils import naver_translate_module
 
 path = os.path.dirname(__file__)
 parent_path = os.path.dirname(path)
@@ -15,11 +16,13 @@ def show_tag(country_code):
         lines = file.readlines()
         for line in lines:
             choice_list.extend(line.replace("'", '').replace(' ', '').split(','))
-    choice_list = list(set(choice_list))
-    translator = Translator()
-    korean_to_target_list = [translator.translate(tag, src='ko', dest=country_code).text for tag in choice_list]
-    target_to_korean_dict = {target:base for base, target in zip(choice_list, korean_to_target_list)}
-    return korean_to_target_list, target_to_korean_dict
+        choice_list = list(set(choice_list))
+    if country_code != 'ko':
+        korean_to_target_list = [naver_translate_module.translate(text, 'ko', country_code)['message']['result']['translatedText'] for text in choice_list]
+        target_to_korean_dict = {target:base for base, target in zip(choice_list, korean_to_target_list)}
+        return korean_to_target_list, target_to_korean_dict
+    else:
+        return choice_list, None
 #불용어
 def call_stopwords():
     with open(parent_path + '\\data\\stopwords.txt', 'r', encoding='utf-8') as file:
