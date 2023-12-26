@@ -140,7 +140,7 @@ def desc():
             rec_string = '선택한 태그에 가장 적합한 목적지입니다.\n['+place_df.name[0] + '](' + place_df.link[0]+')\n\n다음은 목적지 주변 호텔입니다.\n['+near_hotel_df.name[0] + '](' +near_hotel_df.link[0]+') , ['+near_hotel_df.name[1] + '](' +near_hotel_df.link[1]+') , ['+near_hotel_df.name[2] + '](' +near_hotel_df.link[2]+')\n\n다음은 목적지 주변 맛집입니다.\n['+near_food_df.name[0] + '](' +near_food_df.link[0]+') , ['+near_food_df.name[1] + '](' +near_food_df.link[1]+') , ['+near_food_df.name[2] + '](' +near_food_df.link[2]+')\n'
             #rec_string = 'This is the best destination for the tag you selected\n['+place_df.name[0] + '](' + place_df.link[0]+')\n\nthe followings are hotels close to the '+place_df.name[0] + '\n['+near_hotel_df.name[0] + '](' +near_hotel_df.link[0]+') , ['+near_hotel_df.name[1] + '](' +near_hotel_df.link[1]+') , ['+near_hotel_df.name[2] + '](' +near_hotel_df.link[2]+')\n\nthe followings are some of the best places to eat near the '+place_df.name[0] + '\n['+near_food_df.name[0] + '](' +near_food_df.link[0]+') , ['+near_food_df.name[1] + '](' +near_food_df.link[1]+') , ['+near_food_df.name[2] + '](' +near_food_df.link[2]+')\n'
 
-            res = ChatbotMessageSender().req_message_send('태그 여기')
+            res = ChatbotMessageSender().req_message_send('태그 '+ place_df.name[0])
             chatbot_output1 = res.json()['bubbles'][0]['data']['description']
             st.session_state.generated.append(rec_string +'\n'+ chatbot_output1)
 
